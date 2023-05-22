@@ -1,7 +1,6 @@
 {
   "name": "movies-explorer-api",
   "version": "1.0.0",
-  "description": "[![Tests](../../actions/workflows/tests-13-sprint.yml/badge.svg)](../../actions/workflows/tests-13-sprint.yml) [![Tests](../../actions/workflows/tests-14-sprint.yml/badge.svg)](../../actions/workflows/tests-14-sprint.yml)\r # Проект Mesto фронтенд + бэкенд",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mintolime/express-mesto-gha.git"
+    "url": "git+https://github.com/mintolime/movies-explorer-api.git"
   },
   "keywords": [],
   "author": "mintolime",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mintolime/express-mesto-gha/issues"
+    "url": "https://github.com/mintolime/movies-explorer-api/issues"
   },
-  "homepage": "https://github.com/mintolime/express-mesto-gha#readme",
+  "homepage": "https://github.com/mintolime/movies-explorer-api#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
