@@ -49,12 +49,11 @@ const movieSchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
-    required: [true, 'Данное поле обязательно к заполнению'],
+    // required: [true, 'Данное поле обязательно к заполнению'],
   },
   movieId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'user',
-    required: [true, 'Данное поле обязательно к заполнению'],
+    type: String,
+    // required: [true, 'Данное поле обязательно к заполнению'],
   },
   nameRU: {
     type: String,
