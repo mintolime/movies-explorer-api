@@ -6,8 +6,8 @@ const helmet = require('helmet');
 const { errors } = require('celebrate');
 
 const router = require('./routes');
-// const appAuth = require('./routes/auth');
-// const { auth } = require('./middlewares/auth');
+const appAuth = require('./routes/auth');
+const { auth } = require('./middlewares/auth');
 const { handleErrors } = require('./middlewares/handleErrors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const limiter = require('./utils/constants/limiter');
@@ -24,9 +24,9 @@ app.use(helmet());
 app.use(cookieParser());
 app.use(requestLogger);
 // функционал работы роутеров
-// app.use(appAuth);
+app.use(appAuth);
 // защита всех роутеров авторизацией
-// app.use(auth);
+app.use(auth);
 // Apply the rate limiting middleware to all requests
 app.use(limiter);
 app.use(router);
