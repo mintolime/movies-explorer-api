@@ -2,7 +2,7 @@ const Movie = require('../bitfilmsdb/movie');
 const { handleSucsessResponse } = require('../utils/handleSucsessResponse');
 
 const BadRequest = require('../utils/errors/BadRequest');
-// const ForbiddenError = require('../utils/errors/ForbiddenError');
+const ForbiddenError = require('../utils/errors/ForbiddenError');
 const NotFoundError = require('../utils/errors/NotFoundError');
 
 const getAllMovies = (req, res, next) => {
@@ -15,26 +15,9 @@ const getAllMovies = (req, res, next) => {
 };
 
 const createMovie = (req, res, next) => {
-  // const { _id } = req.user;
-  const {
-    country, director, duration, year,
-    description, image, trailerLink, nameRU,
-    nameEN, thumbnail, movieId,
-  } = req.body;
+  const { _id } = req.user;
 
-  Movie.create({
-    country,
-    director,
-    duration,
-    year,
-    description,
-    image,
-    trailerLink,
-    nameRU,
-    nameEN,
-    thumbnail,
-    movieId,
-  })
+  Movie.create({ ...req.body, owner: _id })
     .then((newMovie) => {
       console.log('новый фильм создан', newMovie);
       handleSucsessResponse(res, 201, newMovie);
@@ -48,15 +31,18 @@ const createMovie = (req, res, next) => {
 };
 
 const deleteMovie = (req, res, next) => {
-  const { movieId } = req.params;
-  // console.log("id movie", movieId)
-  Movie.findById(movieId)
+  const movieId = req.params.moviesId;
+
+  Movie.findById({ _id: movieId })
     .then((movie) => {
       if (!movie) {
         throw new NotFoundError('Пользователь по указанному _id не найден');
+      } else if (movie.owner.toString() !== req.user._id) {
+        throw new ForbiddenError('Чужую карточку удалить нельзя');
+      } else {
+        return Movie.deleteOne({ _id: movieId })
+          .then((data) => { handleSucsessResponse(res, 200, data); });
       }
-      return Movie.deleteOne({ _id: movieId })
-        .then((data) => { handleSucsessResponse(res, 200, data); });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
