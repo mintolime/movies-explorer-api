@@ -1,4 +1,4 @@
-const Movie = require('../bitfilmsdb/movie');
+const Movie = require('../models/movie');
 const { handleSucsessResponse } = require('../utils/handleSucsessResponse');
 
 const BadRequest = require('../utils/errors/BadRequest');

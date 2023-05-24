@@ -16,7 +16,7 @@ const NotFoundError = require('./utils/errors/NotFoundError');
 const { PORT = 3000 } = process.env;
 const app = express(router);
 
-mongoose.connect('mongodb://127.0.0.1:27017/moviedb');
+mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -25,10 +25,10 @@ app.use(cookieParser());
 app.use(requestLogger);
 // функционал работы роутеров
 app.use(appAuth);
-// защита всех роутеров авторизацией
-app.use(auth);
 // Apply the rate limiting middleware to all requests
 app.use(limiter);
+// защита всех роутеров авторизацией
+app.use(auth);
 app.use(router);
 
 app.use(errorLogger);

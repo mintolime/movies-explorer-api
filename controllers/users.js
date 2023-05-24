@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const User = require('../bitfilmsdb/user');
+const User = require('../models/user');
 const { handleSucsessResponse } = require('../utils/handleSucsessResponse');
 
 const BadRequest = require('../utils/errors/BadRequest');
