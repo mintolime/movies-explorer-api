@@ -1,10 +1,10 @@
-// require('dotenv').config();
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
 const UnauthorizedError = require('../utils/errors/UnauthorizedError');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
-// eslint-disable-next-line consistent-return
+
 const auth = (req, res, next) => {
   // тут будет вся авторизация
   const { authorization } = req.headers;
@@ -23,7 +23,7 @@ const auth = (req, res, next) => {
   }
 
   req.user = payload; // записываем пейлоуд в объект запроса
-  next();
+  return next();
 };
 
 module.exports = { auth };
