@@ -32,8 +32,8 @@ const deleteMovie = (req, res, next) => {
 
   Movie.findById({ _id: movieId })
     .then((movie) => {
-      if (!movie) {
-        throw new NotFoundError('Пользователь по указанному _id не найден');
+      if (!movie && movie.owner === null) {
+        throw new NotFoundError('Фильм по указанному _id не найден');
       } else if (movie.owner.toString() !== req.user._id) {
         throw new ForbiddenError('Чужую карточку удалить нельзя');
       } else {
