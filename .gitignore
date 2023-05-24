@@ -40,3 +40,6 @@ node_modules
 
 # expressWinston
 *.log
+
+#dotenv
+.env
