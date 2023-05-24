@@ -6,7 +6,7 @@ const ForbiddenError = require('../utils/errors/ForbiddenError');
 const NotFoundError = require('../utils/errors/NotFoundError');
 
 const getAllMovies = (req, res, next) => {
-  Movie.find({})
+  Movie.find({ owner: req.user._id })
     .populate(['owner'])
     .then((movie) => {
       handleSucsessResponse(res, 200, movie);
@@ -15,11 +15,8 @@ const getAllMovies = (req, res, next) => {
 };
 
 const createMovie = (req, res, next) => {
-  const { _id } = req.user;
-
-  Movie.create({ ...req.body, owner: _id })
+  Movie.create({ ...req.body, owner: req.user._id })
     .then((newMovie) => {
-      console.log('новый фильм создан', newMovie);
       handleSucsessResponse(res, 201, newMovie);
     })
     .catch((err) => {
