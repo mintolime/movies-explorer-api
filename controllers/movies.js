@@ -28,14 +28,14 @@ const createMovie = (req, res, next) => {
 };
 
 const deleteMovie = (req, res, next) => {
-  Movie.findById({ _id: req.params._id })
+  Movie.findById({ _id: req.params.moviesId })
     .then((movie) => {
       if (!movie && movie.owner === null) {
         throw new NotFoundError('Фильм по указанному _id не найден');
       } else if (movie.owner.toString() !== req.user._id) {
         throw new ForbiddenError('Чужую карточку удалить нельзя');
       } else {
-        return Movie.deleteOne({ _id: req.params._id })
+        return Movie.deleteOne({ _id: req.params.moviesId })
           .then((data) => { handleSucsessResponse(res, 200, data); });
       }
     })

@@ -13,6 +13,6 @@ moviesRouter.get('/', getAllMovies);
 // country, director, duration, year, description, image, trailer, nameRU и т.д
 moviesRouter.post('/', createMovieValidation, createMovie);
 // удаляет сохранённый фильм по id
-moviesRouter.delete('/:_id', movieIdValidation, deleteMovie);
+moviesRouter.delete('/:moviesId', movieIdValidation, deleteMovie);
 
 module.exports = moviesRouter;
