@@ -6,17 +6,15 @@ const helmet = require('helmet');
 const { errors } = require('celebrate');
 
 const router = require('./routes');
-const appAuth = require('./routes/auth');
-const { auth } = require('./middlewares/auth');
+
 const { handleErrors } = require('./middlewares/handleErrors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const limiter = require('./utils/constants/limiter');
-const NotFoundError = require('./utils/errors/NotFoundError');
+const { CONNECT_DB_PATH, PORT } = require('./config');
 
-const { PORT = 3000 } = process.env;
 const app = express(router);
 
-mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb');
+mongoose.connect(CONNECT_DB_PATH);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,16 +22,10 @@ app.use(helmet());
 app.use(cookieParser());
 app.use(requestLogger);
 // функционал работы роутеров
-app.use(appAuth);
 // Apply the rate limiting middleware to all requests
 app.use(limiter);
-// защита всех роутеров авторизацией
-app.use(auth);
 app.use(router);
-
 app.use(errorLogger);
-app.use((req, res, next) => { next(new NotFoundError('Такой страницы не существует')); });
-
 app.use(errors()); // обработчик ошибок celebrate
 app.use(handleErrors); // центральный обработчик ошибок
 

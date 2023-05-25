@@ -3,7 +3,7 @@ const { regExp } = require('../utils/constants/regExp');
 
 const validationAuthorization = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
+    name: Joi.string().min(2).max(30).required(),
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
@@ -16,15 +16,10 @@ const validationLogin = celebrate({
   }),
 });
 
-const userIdValidation = celebrate({
-  params: Joi.object().keys({
-    userId: Joi.string().length(24).hex(),
-  }),
-});
-
 const updateProfileUserValidation = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
+    email: Joi.string().required().email(),
   }),
 });
 
@@ -51,7 +46,6 @@ const movieIdValidation = celebrate({
 });
 
 module.exports = {
-  userIdValidation,
   updateProfileUserValidation,
   createMovieValidation,
   movieIdValidation,
