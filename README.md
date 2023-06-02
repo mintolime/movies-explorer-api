@@ -1,5 +1,5 @@
 # movies-explorer-api
-movies-explorer-frontend
+movies-explorer-backend
 
 ## Ссылки на проект
 
