@@ -10,6 +10,7 @@ const router = require('./routes');
 const { handleErrors } = require('./middlewares/handleErrors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const limiter = require('./utils/constants/limiter');
+const cors = require('./middlewares/cors');
 const { CONNECT_DB_PATH, PORT } = require('./config');
 
 const app = express(router);
@@ -21,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(cookieParser());
 app.use(requestLogger);
+app.use(cors);
 // функционал работы роутеров
 // Apply the rate limiting middleware to all requests
 app.use(limiter);
